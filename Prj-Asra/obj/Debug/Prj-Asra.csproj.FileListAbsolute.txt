@@ -1,0 +1,8 @@
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\bin\Debug\ASRA.exe.config
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\bin\Debug\ASRA.exe
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\bin\Debug\ASRA.pdb
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\Prj_Asra.mainWindow.resources
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\Prj_Asra.Properties.Resources.resources
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\Prj-Asra.csproj.GenerateResource.Cache
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\ASRA.exe
+C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\ASRA.pdb
