@@ -6,3 +6,12 @@ C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\Prj_Asra.Properties.Resources.r
 C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\Prj-Asra.csproj.GenerateResource.Cache
 C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\ASRA.exe
 C:\Users\HVK\Desktop\Prj-Asra\Prj-Asra\obj\Debug\ASRA.pdb
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\bin\Debug\ASRA.exe.config
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\obj\Debug\ASRA.exe
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\obj\Debug\ASRA.pdb
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\bin\Debug\ASRA.exe
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\bin\Debug\ASRA.pdb
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\obj\Debug\Prj-Asra.csprojResolveAssemblyReference.cache
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\obj\Debug\Prj_Asra.mainWindow.resources
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\obj\Debug\Prj_Asra.Properties.Resources.resources
+C:\Users\HVK\Dropbox\Personal\Documents\Programming projects\Git\asra\Prj-Asra\obj\Debug\Prj-Asra.csproj.GenerateResource.Cache

@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainWindow));
             this.cmBox = new System.Windows.Forms.ComboBox();
             this.btnCmDel = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.txtEpisode = new System.Windows.Forms.TextBox();
+            this.txtSeason = new System.Windows.Forms.TextBox();
             this.chbComplete = new System.Windows.Forms.CheckBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -59,6 +59,7 @@
             this.cmBox.Name = "cmBox";
             this.cmBox.Size = new System.Drawing.Size(230, 21);
             this.cmBox.TabIndex = 0;
+            this.cmBox.SelectedIndexChanged += new System.EventHandler(this.cmBox_SelectedIndexChanged);
             // 
             // btnCmDel
             // 
@@ -70,26 +71,27 @@
             this.btnCmDel.Text = "X";
             this.btnCmDel.UseVisualStyleBackColor = true;
             // 
-            // textBox1
+            // txtName
             // 
-            this.textBox1.Location = new System.Drawing.Point(131, 93);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 20);
-            this.textBox1.TabIndex = 2;
+            this.txtName.Location = new System.Drawing.Point(131, 93);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(230, 20);
+            this.txtName.TabIndex = 2;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
-            // textBox2
+            // txtEpisode
             // 
-            this.textBox2.Location = new System.Drawing.Point(131, 119);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 2;
+            this.txtEpisode.Location = new System.Drawing.Point(131, 119);
+            this.txtEpisode.Name = "txtEpisode";
+            this.txtEpisode.Size = new System.Drawing.Size(100, 20);
+            this.txtEpisode.TabIndex = 2;
             // 
-            // textBox3
+            // txtSeason
             // 
-            this.textBox3.Location = new System.Drawing.Point(131, 145);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 2;
+            this.txtSeason.Location = new System.Drawing.Point(131, 145);
+            this.txtSeason.Name = "txtSeason";
+            this.txtSeason.Size = new System.Drawing.Size(100, 20);
+            this.txtSeason.TabIndex = 2;
             // 
             // chbComplete
             // 
@@ -101,6 +103,7 @@
             this.chbComplete.TabIndex = 3;
             this.chbComplete.Text = "Complete";
             this.chbComplete.UseVisualStyleBackColor = true;
+            this.chbComplete.CheckedChanged += new System.EventHandler(this.chbComplete_CheckedChanged);
             // 
             // btnClear
             // 
@@ -110,6 +113,7 @@
             this.btnClear.TabIndex = 4;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // btnSave
             // 
@@ -197,6 +201,7 @@
             this.btnLboxClear.TabIndex = 1;
             this.btnLboxClear.Text = "X";
             this.btnLboxClear.UseVisualStyleBackColor = true;
+            this.btnLboxClear.Click += new System.EventHandler(this.btnLboxClear_Click);
             // 
             // picBoxTitle
             // 
@@ -240,9 +245,9 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.chbComplete);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtSeason);
+            this.Controls.Add(this.txtEpisode);
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.btnLboxClear);
             this.Controls.Add(this.btnCmDel);
             this.Controls.Add(this.cmBox);
@@ -267,9 +272,9 @@
 
         private System.Windows.Forms.ComboBox cmBox;
         private System.Windows.Forms.Button btnCmDel;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.TextBox txtEpisode;
+        private System.Windows.Forms.TextBox txtSeason;
         private System.Windows.Forms.CheckBox chbComplete;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnSave;
