@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Prj_Asra
 {
@@ -51,11 +52,12 @@ namespace Prj_Asra
                 }
                 else if (xmlCount > 0)
                 {
+                    char[] end = {'.', 'x', 'm', 'l'};
                     DirectoryInfo dir = new DirectoryInfo(libDir);
                     foreach (FileInfo flInfo in dir.GetFiles("*.xml"))
                     {
                         String name = flInfo.Name;
-                        cmBox.Items.Add(name);
+                        cmBox.Items.Add(name.TrimEnd(end));
                     }
                 }
             }
@@ -112,73 +114,45 @@ namespace Prj_Asra
 
         private void cmBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //txtName.Text = cmBox.SelectedValue.ToString();
-            //Specifes where the .exe file is and reads the Library folder 
-            string fileName = null;
-            try
-            {
-                fileName = cmBox.SelectedValue.ToString();
-            }
-            catch (Exception)
-            {
-                fileName = null;
-            }
+            // Specifes where the .exe file is and reads the Library folder 
+            string fileName = cmBox.Text;
 
-            //Reading txt file to output the read name of the txtName box       =============> Start adding the xml communication here
-            if (!cmBox.SelectedIndex.Equals(0))
+            // Reading txt file to output the read name of the txtName box
+            if (cmBox.SelectedIndex != -1 && cmBox.Text != txtName.Text)
             {
                 try
                 {
-                    //Reads selected text file in dropdown list
-                    using (StreamReader sr = new StreamReader(libDir + @"\" + fileName))
+                    // *== XML-Reader ==*
+                    // Load prefs.xml containing set preferences
+                    XmlDocument xmlDoc = new XmlDocument();
+                    FileStream fs = new FileStream((libDir + @"\" + fileName + ".xml"), FileMode.Open, FileAccess.Read);
+                    xmlDoc.Load(fs);
+
+                    // Output the result of the xml read to controls and to the listbox
+                    string curName = xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(0).InnerText.Trim();
+                    txtName.Text = curName;
+                    txtName.Enabled = false;
+
+                    if (xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(1).InnerText.Trim().ToString() == "false")
                     {
-                        sr.BaseStream.Seek(6, SeekOrigin.Begin);
-                        string chkName = sr.ReadLine();
-                        txtName.Text = "" + chkName;
-                        txtName.Enabled = false;
-                        sr.DiscardBufferedData();
-                        sr.Close();
-                    }
-                }
-                catch (Exception)
-                {
-                }
-                //Reading txt file to output the read information the listbox
-                try
-                {
-                    //Reads selected text file in dropdown list
-                    using (StreamReader sr = new StreamReader(libDir + @"\" + fileName))
-                    {
-                        string read = sr.ReadToEnd();
+                        chbComplete.Checked = false;
                         lBox.Items.Clear();
-                        lBox.Items.Add(read);
-                        sr.DiscardBufferedData();
-                        sr.Close();
+                        lBox.Items.Add("Name: " + curName);
+                        lBox.Items.Add("To watch next: " + xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(2).InnerText.Trim());
+                        lBox.Items.Add("Season: " + xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(3).InnerText.Trim());
                     }
+                    else if (xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(1).InnerText.Trim().ToString() == "true")
+                    {
+                        chbComplete.Checked = true;
+                        lBox.Items.Clear();
+                        lBox.Items.Add(curName + " is Complete!");
+                    }
+                    fs.Close();
+
                 }
-                catch (Exception)
+                catch (Exception f)
                 {
-                }
-            }
-            //Complete box
-            if (!cmBox.SelectedIndex.Equals(0))
-            {
-                try
-                {
-                    btnCmDel.Enabled = true;
-                }
-                catch (Exception)
-                {
-                }
-            }
-            else
-            {
-                try
-                {
-                    btnCmDel.Enabled = false;
-                }
-                catch (Exception)
-                {
+                    MessageBox.Show("The following error occured while trying to read a file from your Library: " + f);
                 }
             }
         }

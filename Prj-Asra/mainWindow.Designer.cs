@@ -59,6 +59,7 @@
             this.cmBox.Name = "cmBox";
             this.cmBox.Size = new System.Drawing.Size(230, 21);
             this.cmBox.TabIndex = 0;
+            this.cmBox.TabStop = false;
             this.cmBox.SelectedIndexChanged += new System.EventHandler(this.cmBox_SelectedIndexChanged);
             // 
             // btnCmDel
@@ -68,6 +69,7 @@
             this.btnCmDel.Name = "btnCmDel";
             this.btnCmDel.Size = new System.Drawing.Size(22, 21);
             this.btnCmDel.TabIndex = 1;
+            this.btnCmDel.TabStop = false;
             this.btnCmDel.Text = "X";
             this.btnCmDel.UseVisualStyleBackColor = true;
             // 
@@ -77,6 +79,7 @@
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(230, 20);
             this.txtName.TabIndex = 2;
+            this.txtName.TabStop = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
             // txtEpisode
@@ -85,6 +88,7 @@
             this.txtEpisode.Name = "txtEpisode";
             this.txtEpisode.Size = new System.Drawing.Size(100, 20);
             this.txtEpisode.TabIndex = 2;
+            this.txtEpisode.TabStop = false;
             // 
             // txtSeason
             // 
@@ -92,6 +96,7 @@
             this.txtSeason.Name = "txtSeason";
             this.txtSeason.Size = new System.Drawing.Size(100, 20);
             this.txtSeason.TabIndex = 2;
+            this.txtSeason.TabStop = false;
             // 
             // chbComplete
             // 
@@ -101,6 +106,7 @@
             this.chbComplete.Name = "chbComplete";
             this.chbComplete.Size = new System.Drawing.Size(70, 17);
             this.chbComplete.TabIndex = 3;
+            this.chbComplete.TabStop = false;
             this.chbComplete.Text = "Complete";
             this.chbComplete.UseVisualStyleBackColor = true;
             this.chbComplete.CheckedChanged += new System.EventHandler(this.chbComplete_CheckedChanged);
@@ -111,6 +117,7 @@
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(124, 46);
             this.btnClear.TabIndex = 4;
+            this.btnClear.TabStop = false;
             this.btnClear.Text = "Clear";
             this.btnClear.UseVisualStyleBackColor = true;
             this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
@@ -122,6 +129,7 @@
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(349, 23);
             this.btnSave.TabIndex = 4;
+            this.btnSave.TabStop = false;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             // 
@@ -132,6 +140,7 @@
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);
             this.btnClose.TabIndex = 4;
+            this.btnClose.TabStop = false;
             this.btnClose.Text = "Close";
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
@@ -143,6 +152,7 @@
             this.lBox.Name = "lBox";
             this.lBox.Size = new System.Drawing.Size(321, 134);
             this.lBox.TabIndex = 5;
+            this.lBox.TabStop = false;
             // 
             // label1
             // 
@@ -199,6 +209,7 @@
             this.btnLboxClear.Name = "btnLboxClear";
             this.btnLboxClear.Size = new System.Drawing.Size(22, 21);
             this.btnLboxClear.TabIndex = 1;
+            this.btnLboxClear.TabStop = false;
             this.btnLboxClear.Text = "X";
             this.btnLboxClear.UseVisualStyleBackColor = true;
             this.btnLboxClear.Click += new System.EventHandler(this.btnLboxClear_Click);
