@@ -72,6 +72,7 @@
             this.btnCmDel.TabStop = false;
             this.btnCmDel.Text = "X";
             this.btnCmDel.UseVisualStyleBackColor = true;
+            this.btnCmDel.Click += new System.EventHandler(this.btnCmDel_Click);
             // 
             // txtName
             // 
@@ -132,6 +133,7 @@
             this.btnSave.TabStop = false;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
             // btnClose
             // 
@@ -195,7 +197,7 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Enabled = false;
             this.lblVersion.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVersion.Location = new System.Drawing.Point(226, 51);
+            this.lblVersion.Location = new System.Drawing.Point(238, 51);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(20, 9);
             this.lblVersion.TabIndex = 6;
@@ -219,7 +221,7 @@
             this.picBoxTitle.BackColor = System.Drawing.Color.Transparent;
             this.picBoxTitle.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.picBoxTitle.Image = ((System.Drawing.Image)(resources.GetObject("picBoxTitle.Image")));
-            this.picBoxTitle.Location = new System.Drawing.Point(38, 12);
+            this.picBoxTitle.Location = new System.Drawing.Point(50, 12);
             this.picBoxTitle.Name = "picBoxTitle";
             this.picBoxTitle.Size = new System.Drawing.Size(249, 72);
             this.picBoxTitle.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;

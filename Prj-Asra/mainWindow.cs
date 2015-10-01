@@ -123,7 +123,7 @@ namespace Prj_Asra
                 try
                 {
                     // *== XML-Reader ==*
-                    // Load prefs.xml containing set preferences
+                    // Load XML and read the data
                     XmlDocument xmlDoc = new XmlDocument();
                     FileStream fs = new FileStream((libDir + @"\" + fileName + ".xml"), FileMode.Open, FileAccess.Read);
                     xmlDoc.Load(fs);
@@ -154,6 +154,21 @@ namespace Prj_Asra
                 {
                     MessageBox.Show("The following error occured while trying to read a file from your Library: " + f);
                 }
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            // Implement XML Writer and save to library
+        }
+
+        private void btnCmDel_Click(object sender, EventArgs e)
+        {
+            string fileName = cmBox.Text;
+            DialogResult delYesNo = MessageBox.Show("Delete this from your library?", "Delete - " + fileName, MessageBoxButtons.YesNo);
+            if (delYesNo == DialogResult.Yes)
+            {
+                File.Delete(libDir + @"\" + fileName + ".xml");
             }
         }
     }
