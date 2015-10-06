@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace Prj_Asra
 {
@@ -23,7 +24,6 @@ namespace Prj_Asra
             lblVersion.Text = "v" + (Assembly.GetExecutingAssembly().GetName().Version).ToString();
             Text = "ASRA - v" + (Assembly.GetExecutingAssembly().GetName().Version).ToString();
 
-            //System.IO.Directory.GetCurrentDirectory()
             if (!(Directory.Exists(libDir)))
             {
                 try
@@ -40,7 +40,7 @@ namespace Prj_Asra
             }
             else
             {
-                //Load and read all txt files - output in dropdown menu
+                //Load and read all xml files - output in dropdown menu
                 //Checking wherther the folder is empty, else loading found xml files
                 int xmlCount = Directory.GetFiles(libDir, "*.xml", SearchOption.TopDirectoryOnly).Length;
                 lBox.Items.Add("Found your Library - Loading all Anime/Series...");
@@ -49,6 +49,7 @@ namespace Prj_Asra
                 if (xmlCount == 0)
                 {
                     cmBox.Enabled = false;
+                    btnCmDel.Enabled = false;
                 }
                 else if (xmlCount > 0)
                 {
@@ -71,9 +72,10 @@ namespace Prj_Asra
 
         private void btnClear_Click(object sender, EventArgs e)
         {
+            lBox.Items.Clear();
             txtName.Text = "";
-            txtEpisode.Text = "";
-            txtSeason.Text = "";
+            numEpisode.Value = 0;
+            numSeason.Value = 0;
             txtName.Enabled = true;
             chbComplete.Checked = false;
             cmBox.SelectedIndex = -1;
@@ -84,13 +86,13 @@ namespace Prj_Asra
             if (chbComplete.Checked == true)
             {
                 txtName.Enabled = false;
-                txtEpisode.Enabled = false;
-                txtSeason.Enabled = false;
+                numEpisode.Enabled = false;
+                numSeason.Enabled = false;
             }
             else if (chbComplete.Checked == false)
             {
-                txtEpisode.Enabled = true;
-                txtSeason.Enabled = true;
+                numEpisode.Enabled = true;
+                numSeason.Enabled = true;
             }
         }
 
@@ -100,10 +102,18 @@ namespace Prj_Asra
             if (String.IsNullOrWhiteSpace(txtName.Text) == true)
             {
                 chbComplete.Enabled = false;
+                numEpisode.Enabled = false;
+                numSeason.Enabled = false;
+                btnClear.Enabled = false;
+                btnSave.Enabled = false;
             }
             else
             {
                 chbComplete.Enabled = true;
+                numEpisode.Enabled = true;
+                numSeason.Enabled = true;
+                btnClear.Enabled = true;
+                btnSave.Enabled = true;
             }
         }
 
@@ -129,19 +139,26 @@ namespace Prj_Asra
                     xmlDoc.Load(fs);
 
                     // Output the result of the xml read to controls and to the listbox
-                    string curName = xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(0).InnerText.Trim();
+                    string curName = xmlDoc.GetElementsByTagName("libData")[0].ChildNodes.Item(0).InnerText.Trim();
                     txtName.Text = curName;
                     txtName.Enabled = false;
 
-                    if (xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(1).InnerText.Trim().ToString() == "false")
+                    // Checks whether the "Complete" option is true or false - output accordingly
+                    if (xmlDoc.GetElementsByTagName("libData")[0].ChildNodes.Item(1).InnerText.Trim().ToString() == "false")
                     {
                         chbComplete.Checked = false;
+                        decimal nextEpi = Decimal.Parse(xmlDoc.GetElementsByTagName("libData")[0].ChildNodes.Item(2).InnerText.Trim());
+                        decimal currSeas = Decimal.Parse(xmlDoc.GetElementsByTagName("libData")[0].ChildNodes.Item(3).InnerText.Trim());
+
                         lBox.Items.Clear();
                         lBox.Items.Add("Name: " + curName);
-                        lBox.Items.Add("To watch next: " + xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(2).InnerText.Trim());
-                        lBox.Items.Add("Season: " + xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(3).InnerText.Trim());
+                        lBox.Items.Add("To watch next: " + nextEpi);
+                        lBox.Items.Add("Season: " + currSeas);
+
+                        numEpisode.Value = nextEpi;
+                        numSeason.Value = currSeas;
                     }
-                    else if (xmlDoc.GetElementsByTagName("asra")[0].ChildNodes.Item(1).InnerText.Trim().ToString() == "true")
+                    else if (xmlDoc.GetElementsByTagName("libData")[0].ChildNodes.Item(1).InnerText.Trim().ToString() == "true")
                     {
                         chbComplete.Checked = true;
                         lBox.Items.Clear();
@@ -159,7 +176,25 @@ namespace Prj_Asra
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Implement XML Writer and save to library
+            // Add try catch here! with symbol cleansing (REGEX) to stop exceptions! OR Have the symbol cleansing on the textbox level
+            // *=== XML Writer ==*
+            XmlSerializer writer = new XmlSerializer(typeof(libData));
+            // --Entering the information in with the xml writer
+            libData newData = new libData();
+
+            // 1. Sets the name
+            newData.name = txtName.Text;
+            // 2. Sets whether completes is true or false
+            newData.complete = chbComplete.Checked;
+            // 3. Sets the episode number - note: decimal datatype!
+            newData.episode = numEpisode.Value;
+            // 4. sets the season number - note: decimal datatype!
+            newData.season = numSeason.Value;
+
+            // Save the data to the xml container in the library directory
+            StreamWriter libFile = new StreamWriter(libDir + @"\" + txtName.Text + ".xml");
+            writer.Serialize(libFile, newData);
+            libFile.Close();
         }
 
         private void btnCmDel_Click(object sender, EventArgs e)
@@ -168,7 +203,17 @@ namespace Prj_Asra
             DialogResult delYesNo = MessageBox.Show("Delete this from your library?", "Delete - " + fileName, MessageBoxButtons.YesNo);
             if (delYesNo == DialogResult.Yes)
             {
+                // Deletes the selected library item and checks whether there are any items left
                 File.Delete(libDir + @"\" + fileName + ".xml");
+                cmBox.Items.Remove(fileName);
+                btnClear_Click(sender, e);
+                cmBox.SelectedIndex = -1;
+
+                if (cmBox.Items.Count == 0)
+                {
+                    btnCmDel.Enabled = false;
+                    cmBox.Enabled = false;
+                }
             }
         }
     }

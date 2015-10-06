@@ -32,8 +32,6 @@
             this.cmBox = new System.Windows.Forms.ComboBox();
             this.btnCmDel = new System.Windows.Forms.Button();
             this.txtName = new System.Windows.Forms.TextBox();
-            this.txtEpisode = new System.Windows.Forms.TextBox();
-            this.txtSeason = new System.Windows.Forms.TextBox();
             this.chbComplete = new System.Windows.Forms.CheckBox();
             this.btnClear = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
@@ -47,8 +45,12 @@
             this.btnLboxClear = new System.Windows.Forms.Button();
             this.picBoxTitle = new System.Windows.Forms.PictureBox();
             this.picBox = new System.Windows.Forms.PictureBox();
+            this.numEpisode = new System.Windows.Forms.NumericUpDown();
+            this.numSeason = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEpisode)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSeason)).BeginInit();
             this.SuspendLayout();
             // 
             // cmBox
@@ -83,22 +85,6 @@
             this.txtName.TabStop = false;
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
-            // txtEpisode
-            // 
-            this.txtEpisode.Location = new System.Drawing.Point(131, 119);
-            this.txtEpisode.Name = "txtEpisode";
-            this.txtEpisode.Size = new System.Drawing.Size(100, 20);
-            this.txtEpisode.TabIndex = 2;
-            this.txtEpisode.TabStop = false;
-            // 
-            // txtSeason
-            // 
-            this.txtSeason.Location = new System.Drawing.Point(131, 145);
-            this.txtSeason.Name = "txtSeason";
-            this.txtSeason.Size = new System.Drawing.Size(100, 20);
-            this.txtSeason.TabIndex = 2;
-            this.txtSeason.TabStop = false;
-            // 
             // chbComplete
             // 
             this.chbComplete.AutoSize = true;
@@ -114,6 +100,7 @@
             // 
             // btnClear
             // 
+            this.btnClear.Enabled = false;
             this.btnClear.Location = new System.Drawing.Point(237, 119);
             this.btnClear.Name = "btnClear";
             this.btnClear.Size = new System.Drawing.Size(124, 46);
@@ -126,10 +113,11 @@
             // btnSave
             // 
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(12, 171);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(349, 23);
-            this.btnSave.TabIndex = 4;
+            this.btnSave.TabIndex = 0;
             this.btnSave.TabStop = false;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -240,6 +228,53 @@
             this.picBox.TabIndex = 7;
             this.picBox.TabStop = false;
             // 
+            // numEpisode
+            // 
+            this.numEpisode.Enabled = false;
+            this.numEpisode.Location = new System.Drawing.Point(131, 119);
+            this.numEpisode.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.numEpisode.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numEpisode.Name = "numEpisode";
+            this.numEpisode.Size = new System.Drawing.Size(100, 20);
+            this.numEpisode.TabIndex = 8;
+            this.numEpisode.TabStop = false;
+            this.numEpisode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numEpisode.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.numEpisode.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // numSeason
+            // 
+            this.numSeason.Enabled = false;
+            this.numSeason.Location = new System.Drawing.Point(131, 145);
+            this.numSeason.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.numSeason.Name = "numSeason";
+            this.numSeason.Size = new System.Drawing.Size(100, 20);
+            this.numSeason.TabIndex = 8;
+            this.numSeason.TabStop = false;
+            this.numSeason.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numSeason.UpDownAlign = System.Windows.Forms.LeftRightAlignment.Left;
+            this.numSeason.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // mainWindow
             // 
             this.AcceptButton = this.btnSave;
@@ -247,6 +282,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
             this.ClientSize = new System.Drawing.Size(724, 387);
+            this.Controls.Add(this.numSeason);
+            this.Controls.Add(this.numEpisode);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.picBoxTitle);
             this.Controls.Add(this.lblLibrary);
@@ -258,8 +295,6 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.chbComplete);
-            this.Controls.Add(this.txtSeason);
-            this.Controls.Add(this.txtEpisode);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.btnLboxClear);
             this.Controls.Add(this.btnCmDel);
@@ -276,6 +311,8 @@
             this.Load += new System.EventHandler(this.mainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxTitle)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numEpisode)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numSeason)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -286,8 +323,6 @@
         private System.Windows.Forms.ComboBox cmBox;
         private System.Windows.Forms.Button btnCmDel;
         private System.Windows.Forms.TextBox txtName;
-        private System.Windows.Forms.TextBox txtEpisode;
-        private System.Windows.Forms.TextBox txtSeason;
         private System.Windows.Forms.CheckBox chbComplete;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.Button btnSave;
@@ -301,6 +336,8 @@
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Button btnLboxClear;
         private System.Windows.Forms.PictureBox picBox;
+        private System.Windows.Forms.NumericUpDown numEpisode;
+        private System.Windows.Forms.NumericUpDown numSeason;
     }
 }
 
