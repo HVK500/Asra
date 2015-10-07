@@ -47,6 +47,8 @@
             this.picBox = new System.Windows.Forms.PictureBox();
             this.numEpisode = new System.Windows.Forms.NumericUpDown();
             this.numSeason = new System.Windows.Forms.NumericUpDown();
+            this.btnBrowseTo = new System.Windows.Forms.Button();
+            this.browserDialog = new System.Windows.Forms.FolderBrowserDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picBoxTitle)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numEpisode)).BeginInit();
@@ -116,7 +118,7 @@
             this.btnSave.Enabled = false;
             this.btnSave.Location = new System.Drawing.Point(12, 171);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(349, 23);
+            this.btnSave.Size = new System.Drawing.Size(219, 23);
             this.btnSave.TabIndex = 0;
             this.btnSave.TabStop = false;
             this.btnSave.Text = "Save";
@@ -275,6 +277,24 @@
             0,
             0});
             // 
+            // btnBrowseTo
+            // 
+            this.btnBrowseTo.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnBrowseTo.Enabled = false;
+            this.btnBrowseTo.Location = new System.Drawing.Point(237, 171);
+            this.btnBrowseTo.Name = "btnBrowseTo";
+            this.btnBrowseTo.Size = new System.Drawing.Size(124, 23);
+            this.btnBrowseTo.TabIndex = 0;
+            this.btnBrowseTo.TabStop = false;
+            this.btnBrowseTo.Text = "Browse to...";
+            this.btnBrowseTo.UseVisualStyleBackColor = true;
+            this.btnBrowseTo.Click += new System.EventHandler(this.btnBrowseTo_Click);
+            // 
+            // browserDialog
+            // 
+            this.browserDialog.Description = "Select the folder containing  files";
+            this.browserDialog.ShowNewFolderButton = false;
+            // 
             // mainWindow
             // 
             this.AcceptButton = this.btnSave;
@@ -292,6 +312,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lBox);
             this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnBrowseTo);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.chbComplete);
@@ -338,6 +359,8 @@
         private System.Windows.Forms.PictureBox picBox;
         private System.Windows.Forms.NumericUpDown numEpisode;
         private System.Windows.Forms.NumericUpDown numSeason;
+        private System.Windows.Forms.Button btnBrowseTo;
+        private System.Windows.Forms.FolderBrowserDialog browserDialog;
     }
 }
 

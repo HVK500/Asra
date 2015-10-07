@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Prj_Asra
+﻿namespace Prj_Asra
 {
     public class libData
     {
@@ -12,5 +6,6 @@ namespace Prj_Asra
         public bool complete;
         public decimal episode;
         public decimal season;
+        public string location;
     }
 }
