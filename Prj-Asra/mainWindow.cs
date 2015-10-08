@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -66,8 +67,8 @@ namespace Prj_Asra
                 //Load and read all xml files - output in dropdown menu
                 //Checking wherther the folder is empty, else loading found xml files
                 int xmlCount = Directory.GetFiles(libDir, "*.xml", SearchOption.TopDirectoryOnly).Length;
-                lBox.Items.Add("Found your Library - Loading all Anime/Series...");
-                lBox.Items.Add("Found " + xmlCount + " files in your Library...");
+                lBox.Items.Add("Found your library - Loading all Anime/Series...");
+                lBox.Items.Add("Found " + xmlCount + " files in your library...");
 
                 if (xmlCount == 0)
                 {
@@ -232,6 +233,7 @@ namespace Prj_Asra
                         xmlWrite(cleanName);
 
                         // Add the new entry to the combobox
+                        cmBox.Enabled = true;
                         cmBox.Items.Add(cleanName);
 
                         // Clear the fields and combobox to -1
@@ -281,8 +283,20 @@ namespace Prj_Asra
 
         private void btnBrowseTo_Click(object sender, EventArgs e)
         {
-            // Opens the directory specified in the xml
-            Process.Start(asDir);
+            try
+            {
+                // Opens the directory specified in the xml
+                Process.Start(asDir);
+            }
+            // Handles the "Cannot find the drive specified" exception
+            catch (Win32Exception w)
+            {
+                if (MessageBox.Show("Cannot find the drive specified, Please connect drive and then click Retry.", "ASRA cannot find the drive specified", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
+                {
+                    btnBrowseTo_Click(sender, e);
+                }
+            }
+            
         }
 
         public string cleanseString(string str)
