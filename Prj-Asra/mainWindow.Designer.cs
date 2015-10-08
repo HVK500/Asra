@@ -292,7 +292,7 @@
             // 
             // browserDialog
             // 
-            this.browserDialog.Description = "Select the folder containing  files";
+            this.browserDialog.Description = "Select the folder containing the Anime / Series:";
             this.browserDialog.ShowNewFolderButton = false;
             // 
             // mainWindow
