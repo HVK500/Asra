@@ -327,7 +327,7 @@
             this.Name = "mainWindow";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "ASRA - v*.**";
+            this.Text = "ASRA";
             this.TopMost = true;
             this.Load += new System.EventHandler(this.mainWindow_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picBoxTitle)).EndInit();

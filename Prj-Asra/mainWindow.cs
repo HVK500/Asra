@@ -40,9 +40,9 @@ namespace Prj_Asra
             decimal r = Math.Round(verCalc);
 
             // Auto output of the new build number - Title & Win Text
-            string fullVersion = (Assembly.GetExecutingAssembly().GetName().Version).ToString().Remove(4, 10) + b + "r" + r;
+            string fullVersion = "1.0." + b + "r" + r;// (Assembly.GetExecutingAssembly().GetName().Version).ToString().Remove(4, 10) Removed -> caused problems (OutOfRange exception)
             lblVersion.Text = "v" + fullVersion;
-            Text = "ASRA - v" + fullVersion;
+            //Text = "ASRA - v" + fullVersion;
 
             // == Self-Versioning-System == //
 
@@ -119,6 +119,10 @@ namespace Prj_Asra
             }
             else if (chbComplete.Checked == false)
             {
+                if (cmBox.Items.Contains(txtName.Text) == false)
+                {
+                    txtName.Enabled = true;
+                }
                 numEpisode.Enabled = true;
                 numSeason.Enabled = true;
             }
@@ -235,6 +239,7 @@ namespace Prj_Asra
                         // Add the new entry to the combobox
                         cmBox.Enabled = true;
                         cmBox.Items.Add(cleanName);
+                        btnCmDel.Enabled = true;
 
                         // Clear the fields and combobox to -1
                         btnClear_Click(sender, e);
@@ -253,11 +258,38 @@ namespace Prj_Asra
             // Means it doesn't need the location again (editing a previous entry)
             else if (txtName.Enabled == false)
             {
-                // Write the data to xml file and saves it
-                xmlWrite(txtName.Text);
+                string cleanName = cleanseString(txtName.Text);
 
-                // Clear the fields and combobox
-                btnClear_Click(sender, e);
+                if (chbComplete.Checked == true && cmBox.Items.Contains(cleanName) == false)
+                {
+                    if (browserDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        // Sets the global var to the selected path to input in to the xml document
+                        asDir = browserDialog.SelectedPath;
+
+                        // Write the data to xml file and saves it
+                        xmlWrite(cleanName);
+
+                        // Add the new entry to the combobox
+                        cmBox.Enabled = true;
+                        cmBox.Items.Add(cleanName);
+
+                        // Clear the fields and combobox to -1
+                        btnClear_Click(sender, e);
+                    }
+                    else
+                    {
+                        MessageBox.Show("The library entry was not saved, please specify a location for the entry.", "Could not save library entry!", MessageBoxButtons.OK);
+                    }
+                }
+                else if (cmBox.Items.Contains(cleanName) == true)
+                {
+                    // Write the data to xml file and saves it
+                    xmlWrite(cleanName);
+
+                    // Clear the fields and combobox
+                    btnClear_Click(sender, e);
+                }
             }
         }
 
