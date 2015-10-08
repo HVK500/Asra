@@ -22,9 +22,28 @@ namespace Prj_Asra
 
         private void mainWindow_Load(object sender, System.EventArgs e)
         {
+            // == Self-Versioning-System == //
+
+            // Manually enter the Major & Minor numbers in "AssemblyInfo.cs", Only handles Build & Revision numbers
+            decimal ver;
+            decimal verCalc;
+
+            // Build [Length-4] 
+            ver = Assembly.GetExecutingAssembly().GetName().Version.Build;
+            verCalc = ver / 100;
+            decimal b =  Math.Round(verCalc);
+
+            // Revision [Length-5]
+            ver = Assembly.GetExecutingAssembly().GetName().Version.Revision;
+            verCalc = ver / 1000;
+            decimal r = Math.Round(verCalc);
+
             // Auto output of the new build number - Title & Win Text
-            lblVersion.Text = "v" + (Assembly.GetExecutingAssembly().GetName().Version).ToString();
-            Text = "ASRA - v" + (Assembly.GetExecutingAssembly().GetName().Version).ToString();
+            string fullVersion = (Assembly.GetExecutingAssembly().GetName().Version).ToString().Remove(4, 10) + b + "r" + r;
+            lblVersion.Text = "v" + fullVersion;
+            Text = "ASRA - v" + fullVersion;
+
+            // == Self-Versioning-System == //
 
             // Creates the library directory if there isn't one
             if (!(Directory.Exists(libDir)))
