@@ -68,7 +68,7 @@ namespace Prj_Asra
                 //Checking wherther the folder is empty, else loading found xml files
                 int xmlCount = Directory.GetFiles(libDir, "*.xml", SearchOption.TopDirectoryOnly).Length;
                 lBox.Items.Add("Found your library - Loading all Anime/Series...");
-                lBox.Items.Add("Found " + xmlCount + " files in your library...");
+                lBox.Items.Add("Found " + xmlCount + " entries in your library...");
 
                 if (xmlCount == 0)
                 {
@@ -77,12 +77,12 @@ namespace Prj_Asra
                 }
                 else if (xmlCount > 0)
                 {
-                    char[] end = {'.', 'x', 'm', 'l'};
+                    // Get the xml file name and output to the combobox
                     DirectoryInfo dir = new DirectoryInfo(libDir);
-                    foreach (FileInfo flInfo in dir.GetFiles("*.xml"))
+                    FileInfo[] xmlArray = dir.GetFiles("*.xml", SearchOption.TopDirectoryOnly);
+                    foreach (FileInfo f in xmlArray)
                     {
-                        String name = flInfo.Name;
-                        cmBox.Items.Add(name.TrimEnd(end));
+                        cmBox.Items.Add(Path.GetFileNameWithoutExtension(f.Name));
                     }
                 }
             }
@@ -195,6 +195,7 @@ namespace Prj_Asra
                         // Sets the numeric reels to the numbers on the xml file
                         numEpisode.Value = nextEpi;
                         numSeason.Value = currSeas;
+
                         // Sets the A/S Directory so that you can navigate to the folder
                         asDir = asLoc;
                         btnBrowseTo.Enabled = true;
@@ -205,6 +206,7 @@ namespace Prj_Asra
                         chbComplete.Checked = true;
                         lBox.Items.Clear();
                         lBox.Items.Add(curName + " is Complete!");
+                        btnBrowseTo.Enabled = true;
                     }
                     fs.Close();
 
@@ -243,6 +245,11 @@ namespace Prj_Asra
 
                         // Clear the fields and combobox to -1
                         btnClear_Click(sender, e);
+
+                        // Clear & Print succes message to listbox
+                        lBox.Items.Clear();
+                        lBox.Items.Add("Entry - " + '"' + cleanName + '"' + " - Saved Successfully to your library.");
+
                     }
                     else
                     {
@@ -273,9 +280,14 @@ namespace Prj_Asra
                         // Add the new entry to the combobox
                         cmBox.Enabled = true;
                         cmBox.Items.Add(cleanName);
+                        btnCmDel.Enabled = true;
 
                         // Clear the fields and combobox to -1
                         btnClear_Click(sender, e);
+
+                        // Clear & Print succes message to listbox
+                        lBox.Items.Clear();
+                        lBox.Items.Add("Entry - " + '"' + cleanName + '"' + " - Saved Successfully to your library.");
                     }
                     else
                     {
@@ -289,6 +301,10 @@ namespace Prj_Asra
 
                     // Clear the fields and combobox
                     btnClear_Click(sender, e);
+
+                    // Clear & Print succes message to listbox
+                    lBox.Items.Clear();
+                    lBox.Items.Add("Entry - " + '"' + cleanName + '"' + " - Updated Successfully in your library.");
                 }
             }
         }
@@ -299,16 +315,27 @@ namespace Prj_Asra
             DialogResult delYesNo = MessageBox.Show("Delete " + '"' + fileName + '"' + " from your library?", "Delete - " + fileName + "?", MessageBoxButtons.YesNo);
             if (delYesNo == DialogResult.Yes)
             {
-                // Deletes the selected library item and checks whether there are any items left
-                File.Delete(libDir + @"\" + fileName + ".xml");
-                cmBox.Items.Remove(fileName);
-                btnClear_Click(sender, e);
-                cmBox.SelectedIndex = -1;
-
-                if (cmBox.Items.Count == 0)
+                try
                 {
-                    btnCmDel.Enabled = false;
-                    cmBox.Enabled = false;
+                    // Deletes the selected library item and checks whether there are any items left
+                    File.Delete(libDir + @"\" + fileName + ".xml");
+                    cmBox.Items.Remove(fileName);
+                    btnClear_Click(sender, e);
+                    cmBox.SelectedIndex = -1;
+
+                    if (cmBox.Items.Count == 0)
+                    {
+                        btnCmDel.Enabled = false;
+                        cmBox.Enabled = false;
+                    }
+
+                    // Clear & Print succes message to listbox
+                    lBox.Items.Clear();
+                    lBox.Items.Add("Entry - " + '"' + cmBox.SelectedValue + '"' + " - Deleted Successfully from your library.");
+                }
+                catch (Exception f)
+                {
+                    MessageBox.Show("The following error is blocking you from deleting " + '"' + cmBox.SelectedValue + '"' + " from your library: " + f);
                 }
             }
         }
@@ -321,7 +348,7 @@ namespace Prj_Asra
                 Process.Start(asDir);
             }
             // Handles the "Cannot find the drive specified" exception
-            catch (Win32Exception w)
+            catch (Win32Exception)
             {
                 if (MessageBox.Show("Cannot find the drive specified, Please connect drive and then click Retry.", "ASRA cannot find the drive specified", MessageBoxButtons.RetryCancel) == DialogResult.Retry)
                 {
@@ -337,7 +364,7 @@ namespace Prj_Asra
             StringBuilder cs = new StringBuilder();
             foreach (char c in str)
             {
-                if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '-' || c == ' ')
+                if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '-' || c == ' ' || c == '!')
                 {
                     cs.Append(c);
                 }
